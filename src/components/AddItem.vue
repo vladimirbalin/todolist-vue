@@ -11,6 +11,7 @@
     methods: {
       submitHandler: function (e) {
         e.preventDefault();
+        console.log(this.todo)
         this.$emit('submit', this.todo);
         this.todo = '';
       }

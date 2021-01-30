@@ -10,6 +10,7 @@
 <script>
     import AddItem from './components/AddItem.vue'
     import TodoList from "./components/TodoList";
+    import { v4 as uuidv4 } from 'uuid';
 
     export default {
         name: 'App',
@@ -21,7 +22,7 @@
             submitHandler(todo) {
                 todo = todo.toLowerCase();
                 todo = todo.charAt(0).toUpperCase() + todo.slice(1);
-                this.todoList = [...this.todoList, todo];
+                this.todoList = [...this.todoList, {id: uuidv4(), label: todo, important: false }];
             },
             removeHandler(idx) {
                 this.todoList = this.todoList.filter(el => {
@@ -45,10 +46,10 @@
         data: function () {
             return {
                 todoList: [
-                    {id: 1, label: 'To clean the apartment', important: false},
-                    {id: 2, label: 'Make mistakes', important: false},
-                    {id: 3, label: 'Fix mistakes', important: true},
-                    {id: 4, label: 'Drink coffee', important: true}
+                    {id: uuidv4(), label: 'To clean the apartment', important: false},
+                    {id: uuidv4(), label: 'Make mistakes', important: false},
+                    {id: uuidv4(), label: 'Fix mistakes', important: true},
+                    {id: uuidv4(), label: 'Drink coffee', important: true}
                 ]
             };
         }
