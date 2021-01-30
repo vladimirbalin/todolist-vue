@@ -1,8 +1,9 @@
 <template>
     <div class="todo-list-item">
-          <span class="todo-list-item-label">
-        {{msg}}
-      </span>
+        <span class="todo-list-item-label">
+            {{todo}}
+        </span>
+        <button @click="removeHandler" class="btn btn-danger p-1"><i class="bi bi-trash2-fill"></i></button>
     </div>
 </template>
 
@@ -10,10 +11,21 @@
     export default {
         name: 'TodoItem',
         props: {
-            msg: {
+            todo: {
                 type: String
+            },
+            id: {
+                type: Number
+            },
+            remove: {
+                type: Function
             }
-        }
+        },
+        methods: {
+            removeHandler: function () {
+                this.$emit('remove', this.id)
+            }
+        },
     }
 </script>
 

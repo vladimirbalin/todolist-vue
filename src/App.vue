@@ -1,35 +1,44 @@
 <template>
     <div id="app" class="mx-auto">
-        <AddItem @submitHandler="submitHandler"/>
-        <ul v-for="(msg, index) in this.todoList" :key="index">
-            <TodoItem :msg="msg"/>
-        </ul>
+        <AddItem @submit="submitHandler"/>
+        <TodoList :list="this.todoList"
+                  @remove="removeHandler"/>
     </div>
 </template>
 
 <script>
     import AddItem from './components/AddItem.vue'
-    import TodoItem from "./components/TodoItem.vue";
+    import TodoList from "./components/TodoList";
 
     export default {
         name: 'App',
         components: {
+            TodoList,
             AddItem,
-            TodoItem
         },
         methods: {
             submitHandler(todo) {
                 todo = todo.toLowerCase();
                 todo = todo.charAt(0).toUpperCase() + todo.slice(1);
                 this.todoList = [...this.todoList, todo];
+            },
+            removeHandler(idx) {
+                this.todoList = this.todoList.filter(el => {
+                    return el.id !== idx
+                })
             }
         },
         data: function () {
             return {
-                todoList: ['To clean the apartment', 'Make mistakes', 'Fix mistakes', 'Drink coffee']
+                todoList: [
+                    {id: 1, label: 'To clean the apartment', important: false},
+                    {id: 2, label: 'Make mistakes', important: false},
+                    {id: 3, label: 'Fix mistakes', important: false},
+                    {id: 4, label: 'Drink coffee', important: false}
+                ]
             };
         }
-    }
+        }
 </script>
 
 <style>
