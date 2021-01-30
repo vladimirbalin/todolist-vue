@@ -2,7 +2,8 @@
     <div id="app" class="mx-auto">
         <AddItem @submit="submitHandler"/>
         <TodoList :list="this.todoList"
-                  @remove="removeHandler"/>
+                  @remove="removeHandler"
+                  @important="importantHandler"/>
     </div>
 </template>
 
@@ -26,6 +27,19 @@
                 this.todoList = this.todoList.filter(el => {
                     return el.id !== idx
                 })
+            },
+            importantHandler(idx) {
+                const indexOfChangedItem = this.todoList.findIndex(el => el.id === idx);
+                const changedItem = {
+                    ...this.todoList[indexOfChangedItem],
+                    important: !this.todoList[indexOfChangedItem].important
+                }
+                console.log(indexOfChangedItem, ' ', changedItem)
+                this.todoList = [
+                    ...this.todoList.slice(0, indexOfChangedItem),
+                    changedItem,
+                    ...this.todoList.slice(indexOfChangedItem + 1)
+                ]
             }
         },
         data: function () {
@@ -33,12 +47,12 @@
                 todoList: [
                     {id: 1, label: 'To clean the apartment', important: false},
                     {id: 2, label: 'Make mistakes', important: false},
-                    {id: 3, label: 'Fix mistakes', important: false},
-                    {id: 4, label: 'Drink coffee', important: false}
+                    {id: 3, label: 'Fix mistakes', important: true},
+                    {id: 4, label: 'Drink coffee', important: true}
                 ]
             };
         }
-        }
+    }
 </script>
 
 <style>

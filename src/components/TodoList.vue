@@ -2,9 +2,9 @@
     <ul>
         <TodoItem v-for="(item, index) in this.list"
                   :key="index"
-                  :todo="item.label"
-                  :id="item.id"
+                  :todo="item"
                   v-on="$listeners"
+                  v-bind:class="{ 'important': item.important }"
         />
     </ul>
 </template>
@@ -27,5 +27,8 @@
 </script>
 
 <style scoped>
-
+    .important {
+        font-weight: bold;
+        color: #bb4242;
+    }
 </style>
